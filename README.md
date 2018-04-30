@@ -1,5 +1,5 @@
-# curl -i -X POST -H "Content-Type:application/json" -d '{"name":"My Library"}' http://localhost:8080/libraries
-# curl -i -X POST -d '{"title":"Books", "library":"http://localhost:8080/libraries/1"}' -H "Content-Type:application/json" http://localhost:8080/books
+    curl -i -X POST -H "Content-Type:application/json" -d '{"name":"My Library"}' http://localhost:8080/libraries
+    curl -i -X POST -d '{"title":"Books", "library":"http://localhost:8080/libraries/1"}' -H "Content-Type:application/json" http://localhost:8080/books
 
 2018-04-26 14:13:43.730 ERROR 79256 --- [nio-8080-exec-2] b.e.h.RestResponseEntityExceptionHandler : org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `com.baeldung.models.Library` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('http://localhost:8080/libraries/1'); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot construct instance of `com.baeldung.models.Library` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('http://localhost:8080/libraries/1')
  at [Source: (org.apache.catalina.connector.CoyoteInputStream); line: 1, column: 29] (through reference chain: com.baeldung.models.Book["library"])
