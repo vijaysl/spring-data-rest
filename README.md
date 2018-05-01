@@ -1,3 +1,24 @@
+**Update**
+[Stack Overflow](https://stackoverflow.com/questions/50070023/spring-data-rest-kotlin-associations-post)
+This works after changing val to var in the entities and removing the dependency
+
+    com.fasterxml.jackson.module:jackson-module-kotlin
+<br>
+
+    curl -i -X POST -H "Content-Type:application/json" -d '{"name":"Anon"}' http://localhost:8080/authors
+    curl -i -X POST -H "Content-Type:application/json" -d '{"name":"My Library"}' http://localhost:8080/libraries
+
+**OneToMany**
+
+    curl -i -X POST -d '{"title":"Books", "library":"/libraries/1"}' -H "Content-Type:application/json" http://localhost:8080/books
+
+**ManyToMany**
+
+    curl -i -X PUT -H "Content-Type:text/uri-list" -d "http://localhost:8080/books/1" http://localhost:8080/authors/1/books
+<br>
+
+### Original
+
     curl -i -X POST -H "Content-Type:application/json" -d '{"name":"My Library"}' http://localhost:8080/libraries
     curl -i -X POST -d '{"title":"Books", "library":"http://localhost:8080/libraries/1"}' -H "Content-Type:application/json" http://localhost:8080/books
 

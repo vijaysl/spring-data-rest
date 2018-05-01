@@ -2,6 +2,7 @@ package com.baeldung.models
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -10,19 +11,19 @@ import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 
 @Entity
-data class Book(
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0,
+data class Book @JvmOverloads constructor(
 
     @Column(nullable = false)
-    var title: String? = null,
+    val title: String?=null,
 
     @ManyToOne
     @JoinColumn(name = "library_id")
-    var library: Library? = null,
+    val library: Library?=null,
 
-    @ManyToMany(mappedBy = "books")
-    var authors: List<Author>? = null
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    val authors: List<Author>? = listOf(),
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long?=-1
 )

@@ -43,47 +43,36 @@ class SpringDataRestValidatorIntegrationTest {
     @Test
     @Throws(Exception::class)
     fun whenAddingNewCorrectUser_thenCorrectStatusCodeAndResponse() {
-        val user = WebsiteUser()
-        user.email = "john.doe@john.com"
-        user.name = "John Doe"
-
+        val user = WebsiteUser("John Doe", "john.doe@john.com")
         mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().is2xxSuccessful).andExpect(redirectedUrl("http://localhost/users/1"))
     }
 
     @Test
     @Throws(Exception::class)
     fun whenAddingNewUserWithoutName_thenErrorStatusCodeAndResponse() {
-        val user = WebsiteUser()
-        user.email = "john.doe@john.com"
-
-        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isNotAcceptable).andExpect(redirectedUrl(null.toString()))
+        val user = WebsiteUser(null, "john.doe@john.com")
+        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isPartialContent).andExpect(redirectedUrl(null.toString()))
     }
 
     @Test
     @Throws(Exception::class)
     fun whenAddingNewUserWithEmptyName_thenErrorStatusCodeAndResponse() {
-        val user = WebsiteUser()
-        user.email = "john.doe@john.com"
-        user.name = ""
-        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isNotAcceptable).andExpect(redirectedUrl(null.toString()))
+        val user = WebsiteUser("", "john.doe@john.com")
+        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isPartialContent).andExpect(redirectedUrl(null.toString()))
     }
 
     @Test
     @Throws(Exception::class)
     fun whenAddingNewUserWithoutEmail_thenErrorStatusCodeAndResponse() {
-        val user = WebsiteUser()
-        user.name = "John Doe"
-
-        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isNotAcceptable).andExpect(redirectedUrl(null.toString()))
+        val user = WebsiteUser("John Doe")
+        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isPartialContent).andExpect(redirectedUrl(null.toString()))
     }
 
     @Test
     @Throws(Exception::class)
     fun whenAddingNewUserWithEmptyEmail_thenErrorStatusCodeAndResponse() {
-        val user = WebsiteUser()
-        user.name = "John Doe"
-        user.email = ""
-        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isNotAcceptable).andExpect(redirectedUrl(null.toString()))
+        val user = WebsiteUser("John Doe" ,"")
+        mockMvc!!.perform(post("/users", user).contentType(MediaType.APPLICATION_JSON).content(ObjectMapper().writeValueAsString(user))).andExpect(status().isPartialContent).andExpect(redirectedUrl(null.toString()))
     }
 
     companion object {

@@ -8,21 +8,15 @@ import javax.persistence.Id
 import javax.persistence.OneToOne
 
 @Entity
-class Address {
+data class Address @JvmOverloads constructor(
+
+    @Column(nullable = false)
+    val location: String? = null,
+
+    @OneToOne(mappedBy = "address")
+    val library: Library? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
-
-    @Column(nullable = false)
-    var location: String? = null
-
-    @OneToOne(mappedBy = "address")
-    var library: Library? = null
-
-    constructor() {}
-
-    constructor(location: String) : super() {
-        this.location = location
-    }
-}
+    val id: Long? = -1
+)

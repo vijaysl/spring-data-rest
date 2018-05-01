@@ -6,12 +6,12 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class WebsiteUser {
+data class WebsiteUser @JvmOverloads constructor(
+
+    val name: String?=null,
+    val email: String?=null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
-
-    var name: String? = null
-    var email: String? = null
-}
+    val id: Long?=-1
+)

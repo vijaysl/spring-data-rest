@@ -11,20 +11,18 @@ import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 
 @Entity
-data class Library(
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0,
-
+data class Library @JvmOverloads constructor(
     @Column
-    var name: String? = null,
+    val name: String?=null,
 
     @OneToOne
     @JoinColumn(name = "address_id")
     @RestResource(path = "libraryAddress")
-    var address: Address? = null,
+    val address: Address?=null,
 
     @OneToMany(mappedBy = "library")
-    var books: List<Book>? = null
-)
+    val books: List<Book>?=listOf(),
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long?=-1)
